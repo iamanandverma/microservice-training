@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: studentms
+          uri: lb://studentms
+          predicates:
+            - Path=/students/**
+          filters:
+            - StripPrefix=1
+
+        - id: feesms
+          uri: lb://feesms
+          predicates:
+            - Path=/fees/**
+          filters:
+            - StripPrefix=1
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/oauth/token
+            
